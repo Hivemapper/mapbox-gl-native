@@ -330,6 +330,9 @@ pre code {
   font-size: 1em;
   list-style-type: none;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $navigation_task_color;
 }
 
 .nav-group-task-link {
