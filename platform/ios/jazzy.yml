@@ -81,6 +81,7 @@ custom_categories:
       - MGLCoordinateBoundsMake
       - MGLCoordinateBoundsOffset
       - MGLCoordinateFormatter
+      - MGLCoordinateInCoordinateBounds
       - MGLCoordinateSpan
       - MGLCoordinateSpanEqualToCoordinateSpan
       - MGLCoordinateSpanMake
