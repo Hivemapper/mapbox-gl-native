@@ -10,7 +10,7 @@ $text_color: #333;
 $gray_border: 1px solid #ddd;
 
 $heading_weight: normal;
-$light_heading_color: #777;
+$light_heading_color: #666;
 
 $quote_color: #858585;
 $quote_border: 4px solid #e5e5e5;
@@ -100,11 +100,16 @@ body {
   font-family: $header_font;
   font-size: $font-size;
   font-weight: $heading_weight;
+  color: $light_heading_color;
   margin: $margin;
 }
 
 h1 {
   @include heading(2.0rem, 0.5em 0 0.6em);
+}
+
+h1 a {
+  color: $light_heading_color;
 }
 
 h2 {
@@ -119,13 +124,8 @@ h4 {
   @include heading(1rem);
 }
 
-h5 {
+h5, h6 {
   @include heading;
-}
-
-h6 {
-  @include heading;
-  color: $light_heading_color;
 }
 
 p {
@@ -201,6 +201,7 @@ pre {
 code {
   font-family: $code_font;
   font-size: .85em;
+  line-height: .85em;
 }
 
 p, li {
