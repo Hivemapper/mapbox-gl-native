@@ -7,9 +7,7 @@ using namespace mbgl;
 using namespace shaders::collisionbox;
 
 CollisionBoxShader::CollisionBoxShader(gl::ObjectStore& store)
-    : Shader(::name, ::vertex, ::fragment, store)
-    , a_extrude(MBGL_CHECK_ERROR(glGetAttribLocation(getID(), "a_extrude")))
-    , a_data(MBGL_CHECK_ERROR(glGetAttribLocation(getID(), "a_data"))) {
+    : Shader(::name, ::vertex, ::fragment, store) {
 }
 
 void CollisionBoxShader::bind(GLbyte *offset) {
@@ -23,5 +21,4 @@ void CollisionBoxShader::bind(GLbyte *offset) {
 
     MBGL_CHECK_ERROR(glEnableVertexAttribArray(a_data));
     MBGL_CHECK_ERROR(glVertexAttribPointer(a_data, 2, GL_UNSIGNED_BYTE, false, stride, offset + 8));
-
 }

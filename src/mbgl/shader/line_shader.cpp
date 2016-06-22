@@ -7,8 +7,7 @@ using namespace mbgl;
 using namespace shaders::line;
 
 LineShader::LineShader(gl::ObjectStore& store)
-    : Shader(::name, ::vertex, ::fragment, store)
-    , a_data(MBGL_CHECK_ERROR(glGetAttribLocation(getID(), "a_data"))) {
+    : Shader(::name, ::vertex, ::fragment, store) {
 }
 
 void LineShader::bind(GLbyte* offset) {

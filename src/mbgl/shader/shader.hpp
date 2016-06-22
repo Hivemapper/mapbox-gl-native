@@ -4,6 +4,7 @@
 #include <mbgl/gl/object_store.hpp>
 #include <mbgl/util/noncopyable.hpp>
 #include <mbgl/util/optional.hpp>
+#include <mbgl/util/traits.hpp>
 
 namespace mbgl {
 
@@ -22,9 +23,26 @@ public:
 
     virtual void bind(GLbyte *offset) = 0;
 
+private:
+    enum class Attribute : GLint {
+        Invalid = 0,
+        Position,
+        Extrude,
+        Offset,
+        Data,
+        Data1,
+        Data2,
+    };
+
 protected:
     Shader(const char* name_, const char* vertex, const char* fragment, gl::ObjectStore&);
-    GLint a_pos = -1;
+
+    static constexpr GLint     a_pos = underlying_type(Attribute::Position);
+    static constexpr GLint a_extrude = underlying_type(Attribute::Extrude);
+    static constexpr GLint  a_offset = underlying_type(Attribute::Offset);
+    static constexpr GLint    a_data = underlying_type(Attribute::Data);
+    static constexpr GLint   a_data1 = underlying_type(Attribute::Data1);
+    static constexpr GLint   a_data2 = underlying_type(Attribute::Data2);
 
 private:
     bool compileShader(gl::UniqueShader&, const GLchar *source);

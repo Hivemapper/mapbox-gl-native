@@ -64,8 +64,8 @@ Painter::Painter(const TransformState& state_, gl::ObjectStore& store_)
     patternShader = std::make_unique<PatternShader>(store);
     iconShader = std::make_unique<IconShader>(store);
     rasterShader = std::make_unique<RasterShader>(store);
-    sdfGlyphShader = std::make_unique<SDFGlyphShader>(store);
-    sdfIconShader = std::make_unique<SDFIconShader>(store);
+    sdfGlyphShader = std::make_unique<SDFShader>(store);
+    sdfIconShader = std::make_unique<SDFShader>(store);
     collisionBoxShader = std::make_unique<CollisionBoxShader>(store);
     circleShader = std::make_unique<CircleShader>(store);
 

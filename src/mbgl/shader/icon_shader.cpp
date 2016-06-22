@@ -7,10 +7,7 @@ using namespace mbgl;
 using namespace shaders::icon;
 
 IconShader::IconShader(gl::ObjectStore& store)
-    : Shader(::name, ::vertex, ::fragment, store)
-    , a_offset(MBGL_CHECK_ERROR(glGetAttribLocation(getID(), "a_offset")))
-    , a_data1(MBGL_CHECK_ERROR(glGetAttribLocation(getID(), "a_data1")))
-    , a_data2(MBGL_CHECK_ERROR(glGetAttribLocation(getID(), "a_data2"))) {
+    : Shader(::name, ::vertex, ::fragment, store) {
 }
 
 void IconShader::bind(GLbyte* offset) {

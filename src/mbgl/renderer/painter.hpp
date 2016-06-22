@@ -53,8 +53,6 @@ class CircleShader;
 class PatternShader;
 class IconShader;
 class RasterShader;
-class SDFGlyphShader;
-class SDFIconShader;
 class CollisionBoxShader;
 
 struct ClipID;
@@ -208,8 +206,8 @@ private:
     std::unique_ptr<PatternShader> patternShader;
     std::unique_ptr<IconShader> iconShader;
     std::unique_ptr<RasterShader> rasterShader;
-    std::unique_ptr<SDFGlyphShader> sdfGlyphShader;
-    std::unique_ptr<SDFIconShader> sdfIconShader;
+    std::unique_ptr<SDFShader> sdfGlyphShader;
+    std::unique_ptr<SDFShader> sdfIconShader;
     std::unique_ptr<CollisionBoxShader> collisionBoxShader;
     std::unique_ptr<CircleShader> circleShader;
 

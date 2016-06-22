@@ -53,11 +53,17 @@ Shader::Shader(const char* name_, const char* vertexSource, const char* fragment
         MBGL_CHECK_ERROR(glAttachShader(*programOverdraw, *overdrawShader));
         linkProgram(*programOverdraw);
     }
-
-    a_pos = MBGL_CHECK_ERROR(glGetAttribLocation(program.get(), "a_pos"));
 }
 
 void Shader::linkProgram(gl::UniqueProgram& program_) {
+    // Bind attribute variables
+    MBGL_CHECK_ERROR(glBindAttribLocation(program_.get(), a_pos, "a_pos"));
+    MBGL_CHECK_ERROR(glBindAttribLocation(program_.get(), a_extrude, "a_extrude"));
+    MBGL_CHECK_ERROR(glBindAttribLocation(program_.get(), a_offset, "a_offset"));
+    MBGL_CHECK_ERROR(glBindAttribLocation(program_.get(), a_data, "a_data"));
+    MBGL_CHECK_ERROR(glBindAttribLocation(program_.get(), a_data1, "a_data1"));
+    MBGL_CHECK_ERROR(glBindAttribLocation(program_.get(), a_data2, "a_data2"));
+
     // Link program
     GLint status;
      MBGL_CHECK_ERROR(glLinkProgram(program_.get()));
