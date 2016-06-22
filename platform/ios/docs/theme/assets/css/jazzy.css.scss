@@ -5,11 +5,11 @@
 // ===========================================================================
 
 $body_background: #fff;
-$body_font: 14px/1.6 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$body_font: 15px/25px 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $text_color: #333;
 $gray_border: 1px solid #ddd;
 
-$heading_weight: 400;
+$heading_weight: normal;
 $light_heading_color: #777;
 
 $quote_color: #858585;
@@ -33,6 +33,8 @@ $navigation_max_width: 300px;
 
 // ----- Header
 
+
+$header_font: 'Open Sans Bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $header_bg_color: #3887be;
 $header_link_color: #fff;
 $doc_coverage_color: #999;
@@ -49,8 +51,10 @@ $breadcrumbs_border_color: #ddd;
 $navigation_max_width: 300px;
 $navigation_bg_color: #fbfbfb;
 $navigation_border_color: #ddd;
-$navigation_title_color: #333;
-$navigation_task_color: #808080;
+$navigation_title_color: rgba(0, 0, 0, 0.5);
+$navigation_task_color: $link_color;
+
+$section_name_color: $navigation_title_color;
 
 // ----- Content
 
@@ -93,25 +97,26 @@ body {
 // ----- Block elements
 
 @mixin heading($font-size: 1rem, $margin: 1.275em 0 0.85em) {
+  font-family: $header_font;
   font-size: $font-size;
   font-weight: $heading_weight;
   margin: $margin;
 }
 
 h1 {
-  @include heading(2.5rem, 0.5em 0 0.6em);
+  @include heading(2.0rem, 0.5em 0 0.6em);
 }
 
 h2 {
-  @include heading(1.75rem, 1.275em 0 0.3em);
+  @include heading(1.5rem, 1em 0 0.6em);
 }
 
 h3 {
-  @include heading(1.5rem, 1em 0 0.3em);
+  @include heading(1rem, 1em 0 0.3em);
 }
 
 h4 {
-  @include heading(1.25rem);
+  @include heading(1rem);
 }
 
 h5 {
@@ -300,8 +305,9 @@ pre code {
     width: 25%;
     max-width: $navigation_max_width;
     padding-bottom: $gutter*4;
+    font-size: 12px;
+    line-height: 20px;
     overflow: hidden;
-    word-wrap: normal;
     background: $navigation_bg_color;
     border-right: 1px solid $navigation_border_color;
   }
@@ -318,6 +324,7 @@ pre code {
 }
 
 .nav-group-name-link {
+  font-family: $header_font;
   color: $navigation_title_color;
 }
 
@@ -336,7 +343,7 @@ pre code {
 }
 
 .nav-group-task-link {
-  color: $navigation_task_color;
+   color: $navigation_task_color;
 }
 
 // ===========================================================================
@@ -365,7 +372,7 @@ pre code {
 }
 
 .section-name {
-  color: #666;
+  color: $section_name_color;
   display: block;
 }
 
@@ -553,3 +560,24 @@ html.dash {
     display: block;
   }
 }
+
+
+// ===========================================================================
+//
+//  Fonts
+//
+// ===========================================================================
+
+@font-face {
+  font-family:'Open Sans';
+    src:url('../fonts/opensans-regular.eot');
+    src:url('../fonts/opensans-regular.eot#iefix') format('embedded-opentype'),
+        url('../fonts/opensans-regular.woff') format('woff');
+  }
+
+@font-face {
+  font-family:'Open Sans Bold';
+    src:url('../fonts/opensans-bold.eot');
+    src:url('../fonts/opensans-bold.eot#iefix') format('embedded-opentype'),
+        url('../fonts/opensans-bold.woff') format('woff');
+  }
