@@ -111,5 +111,5 @@ for (const layer of layers) {
   fs.writeFileSync(`src/mbgl/style/layers/${layer.type}_layer_properties.cpp`, propertiesCpp(layer));
 }
 
-const nodeStyleCpp = ejs.compile(fs.readFileSync('platform/node/src/node_style_properties.hpp.ejs', 'utf8'), {strict: true});
-fs.writeFileSync('platform/node/src/node_style_properties.hpp', nodeStyleCpp({layers: layers}));
+const layerConversionHpp = ejs.compile(fs.readFileSync('include/mbgl/style/conversion/layer.gen.hpp.ejs', 'utf8'), {strict: true});
+fs.writeFileSync('include/mbgl/style/conversion/layer.gen.hpp', layerConversionHpp({layers: layers}));
