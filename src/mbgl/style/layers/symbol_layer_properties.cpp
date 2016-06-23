@@ -42,23 +42,6 @@ void SymbolLayoutProperties::recalculate(const CalculationParameters& parameters
     textOptional.calculate(parameters);
 }
 
-void SymbolPaintProperties::parse(const JSValue& value) {
-    iconOpacity.parse("icon-opacity", value);
-    iconColor.parse("icon-color", value);
-    iconHaloColor.parse("icon-halo-color", value);
-    iconHaloWidth.parse("icon-halo-width", value);
-    iconHaloBlur.parse("icon-halo-blur", value);
-    iconTranslate.parse("icon-translate", value);
-    iconTranslateAnchor.parse("icon-translate-anchor", value);
-    textOpacity.parse("text-opacity", value);
-    textColor.parse("text-color", value);
-    textHaloColor.parse("text-halo-color", value);
-    textHaloWidth.parse("text-halo-width", value);
-    textHaloBlur.parse("text-halo-blur", value);
-    textTranslate.parse("text-translate", value);
-    textTranslateAnchor.parse("text-translate-anchor", value);
-}
-
 void SymbolPaintProperties::cascade(const CascadeParameters& parameters) {
     iconOpacity.cascade(parameters);
     iconColor.cascade(parameters);

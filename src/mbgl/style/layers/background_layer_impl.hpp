@@ -11,8 +11,6 @@ class BackgroundLayer::Impl : public Layer::Impl {
 public:
     std::unique_ptr<Layer> clone() const override;
 
-    void parsePaints(const JSValue&) override;
-
     void cascade(const CascadeParameters&) override;
     bool recalculate(const CalculationParameters&) override;
 

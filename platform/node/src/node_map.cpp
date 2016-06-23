@@ -504,9 +504,9 @@ NAN_METHOD(NodeMap::AddLayer) {
     nodeMap->map->addLayer(std::move(*layer));
 }
 
-template <class Fn>
-void setProperty(const Nan::FunctionCallbackInfo<v8::Value>& info, Fn&& setter) {
+NAN_METHOD(NodeMap::SetLayoutProperty) {
     using namespace mbgl::style;
+    using namespace mbgl::style::conversion;
 
     auto nodeMap = Nan::ObjectWrap::Unwrap<NodeMap>(info.Holder());
     if (!nodeMap->map) return Nan::ThrowError(releasedMessage());
@@ -528,20 +528,51 @@ void setProperty(const Nan::FunctionCallbackInfo<v8::Value>& info, Fn&& setter) 
         return Nan::ThrowTypeError("Second argument must be a string");
     }
 
-    if (!setter(*layer, *Nan::Utf8String(info[1]), info[2])) {
-        return;
+    mbgl::optional<Error> error = setLayoutProperty(*layer, *Nan::Utf8String(info[1]), info[2]);
+    if (error) {
+        return Nan::ThrowTypeError(error->message);
     }
 
     nodeMap->map->update(mbgl::Update::RecalculateStyle);
     info.GetReturnValue().SetUndefined();
 }
 
-NAN_METHOD(NodeMap::SetLayoutProperty) {
-    setProperty(info, &mbgl::style::conversion::setLayoutProperty<v8::Local<v8::Value>>);
-}
-
 NAN_METHOD(NodeMap::SetPaintProperty) {
-    setProperty(info, &mbgl::style::conversion::setPaintProperty<v8::Local<v8::Value>>);
+    using namespace mbgl::style;
+    using namespace mbgl::style::conversion;
+
+    auto nodeMap = Nan::ObjectWrap::Unwrap<NodeMap>(info.Holder());
+    if (!nodeMap->map) return Nan::ThrowError(releasedMessage());
+
+    if (info.Length() < 3) {
+        return Nan::ThrowTypeError("Three arguments required");
+    }
+
+    if (!info[0]->IsString()) {
+        return Nan::ThrowTypeError("First argument must be a string");
+    }
+
+    mbgl::style::Layer* layer = nodeMap->map->getLayer(*Nan::Utf8String(info[0]));
+    if (!layer) {
+        return Nan::ThrowTypeError("layer not found");
+    }
+
+    if (!info[1]->IsString()) {
+        return Nan::ThrowTypeError("Second argument must be a string");
+    }
+
+    mbgl::optional<std::string> klass;
+    if (info.Length() == 4 && info[3]->IsString()) {
+        klass = std::string(*Nan::Utf8String(info[3]));
+    }
+
+    mbgl::optional<Error> error = setPaintProperty(*layer, *Nan::Utf8String(info[1]), info[2], klass);
+    if (error) {
+        return Nan::ThrowTypeError(error->message);
+    }
+
+    nodeMap->map->update(mbgl::Update::RecalculateStyle);
+    info.GetReturnValue().SetUndefined();
 }
 
 NAN_METHOD(NodeMap::SetFilter) {

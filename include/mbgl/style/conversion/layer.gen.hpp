@@ -20,14 +20,14 @@ namespace style {
 namespace conversion {
 
 template <class V>
-using PropertySetter = std::function<optional<Error> (Layer&, const V&)>;
+using LayoutPropertySetter = std::function<optional<Error> (Layer&, const V&)>;
 
 template <class V>
-using PropertySetters = std::unordered_map<std::string, PropertySetter<V>>;
+using PaintPropertySetter = std::function<optional<Error> (Layer&, const V&, const optional<std::string>&)>;
 
-template <class V, class L, class T>
-PropertySetter<V> makePropertySetter(void (L::*setter)(PropertyValue<T>)) {
-    return [setter] (mbgl::style::Layer& layer, const V& value) -> optional<Error> {
+template <class V, class L, class T, class...Args>
+auto makePropertySetter(void (L::*setter)(PropertyValue<T>, const Args&...)) {
+    return [setter] (mbgl::style::Layer& layer, const V& value, const Args&...args) -> optional<Error> {
         L* typedLayer = layer.as<L>();
         if (!typedLayer) {
             return Error { "layer doesn't support this property" };
@@ -38,7 +38,7 @@ PropertySetter<V> makePropertySetter(void (L::*setter)(PropertyValue<T>)) {
             return typedValue.error();
         }
 
-        (typedLayer->*setter)(*typedValue);
+        (typedLayer->*setter)(*typedValue, args...);
         return {};
     };
 }
@@ -55,8 +55,8 @@ optional<Error> setVisibility(Layer& layer, const V& value) {
 }
 
 template <class V>
-PropertySetters<V> makeLayoutPropertySetters() {
-    PropertySetters<V> result;
+auto makeLayoutPropertySetters() {
+    std::unordered_map<std::string, LayoutPropertySetter<V>> result;
 
     result["visibility"] = &setVisibility<V>;
 
@@ -108,8 +108,8 @@ PropertySetters<V> makeLayoutPropertySetters() {
 }
 
 template <class V>
-PropertySetters<V> makePaintPropertySetters() {
-    PropertySetters<V> result;
+auto makePaintPropertySetters() {
+    std::unordered_map<std::string, PaintPropertySetter<V>> result;
 
     result["fill-antialias"] = makePropertySetter<V>(&FillLayer::setFillAntialias);
     result["fill-opacity"] = makePropertySetter<V>(&FillLayer::setFillOpacity);

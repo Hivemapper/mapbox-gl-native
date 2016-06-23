@@ -83,8 +83,8 @@ PropertyValue<<%- propertyType(property) %>> <%- camelize(type) %>Layer::get<%- 
     return impl->paint.<%- camelizeWithLeadingLowercase(property.name) %>.get();
 }
 
-void <%- camelize(type) %>Layer::set<%- camelize(property.name) %>(PropertyValue<<%- propertyType(property) %>> value) {
-    impl->paint.<%- camelizeWithLeadingLowercase(property.name) %>.set(value);
+void <%- camelize(type) %>Layer::set<%- camelize(property.name) %>(PropertyValue<<%- propertyType(property) %>> value, const optional<std::string>& klass) {
+    impl->paint.<%- camelizeWithLeadingLowercase(property.name) %>.set(value, klass);
 }
 <% } -%>
 

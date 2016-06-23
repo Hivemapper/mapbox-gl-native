@@ -12,19 +12,6 @@ void LineLayoutProperties::recalculate(const CalculationParameters& parameters) 
     lineRoundLimit.calculate(parameters);
 }
 
-void LinePaintProperties::parse(const JSValue& value) {
-    lineOpacity.parse("line-opacity", value);
-    lineColor.parse("line-color", value);
-    lineTranslate.parse("line-translate", value);
-    lineTranslateAnchor.parse("line-translate-anchor", value);
-    lineWidth.parse("line-width", value);
-    lineGapWidth.parse("line-gap-width", value);
-    lineOffset.parse("line-offset", value);
-    lineBlur.parse("line-blur", value);
-    lineDasharray.parse("line-dasharray", value);
-    linePattern.parse("line-pattern", value);
-}
-
 void LinePaintProperties::cascade(const CascadeParameters& parameters) {
     lineOpacity.cascade(parameters);
     lineColor.cascade(parameters);

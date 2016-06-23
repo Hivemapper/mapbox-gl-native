@@ -26,8 +26,6 @@ public:
 private:
     std::unique_ptr<Layer> clone() const override;
 
-    void parsePaints(const JSValue&) final {}
-
     void cascade(const CascadeParameters&) final {}
     bool recalculate(const CalculationParameters&) final;
 

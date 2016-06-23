@@ -220,6 +220,8 @@ void Parser::parseLayer(const std::string& id, const JSValue& value, std::unique
         }
 
         layer = reference->baseImpl->copy(id, ref, reference->baseImpl->source);
+
+//        mbgl::util::erase_if(values, [] (const auto& p) { return p.first != ClassID::Fallback; });
         layer->baseImpl->parsePaints(value);
     } else {
         conversion::Result<std::unique_ptr<Layer>> converted = conversion::convert<std::unique_ptr<Layer>>(value);
@@ -227,9 +229,7 @@ void Parser::parseLayer(const std::string& id, const JSValue& value, std::unique
             Log::Warning(Event::ParseStyle, "layer '%s': %s", id.c_str(), converted.error().message);
             return;
         }
-
         layer = std::move(*converted);
-        layer->baseImpl->parsePaints(value);
     }
 }
 

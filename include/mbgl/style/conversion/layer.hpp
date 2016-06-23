@@ -17,7 +17,8 @@ namespace style {
 namespace conversion {
 
 template <class V>
-optional<Error> setProperty(Layer& layer, const std::string& name, const V& value, const PropertySetters<V>& setters) {
+optional<Error> setLayoutProperty(Layer& layer, const std::string& name, const V& value) {
+    static const auto setters = makeLayoutPropertySetters<V>();
     auto it = setters.find(name);
     if (it == setters.end()) {
         return Error { "property not found" };
@@ -26,15 +27,13 @@ optional<Error> setProperty(Layer& layer, const std::string& name, const V& valu
 }
 
 template <class V>
-optional<Error> setPaintProperty(Layer& layer, const std::string& name, const V& value) {
-    static const PropertySetters<V> setters = makePaintPropertySetters<V>();
-    return setProperty(layer, name, value, setters);
-}
-
-template <class V>
-optional<Error> setLayoutProperty(Layer& layer, const std::string& name, const V& value) {
-    static const PropertySetters<V> setters = makeLayoutPropertySetters<V>();
-    return setProperty(layer, name, value, setters);
+optional<Error> setPaintProperty(Layer& layer, const std::string& name, const V& value, const optional<std::string>& klass) {
+    static const auto setters = makePaintPropertySetters<V>();
+    auto it = setters.find(name);
+    if (it == setters.end()) {
+        return Error { "property not found" };
+    }
+    return it->second(layer, value, klass);
 }
 
 template <>
@@ -113,9 +112,31 @@ public:
             if (!isObject(*layoutValue)) {
                 return Error { "layout must be an object" };
             }
-            eachMember(*layoutValue, [&] (const std::string& k, const V& v) {
+            optional<Error> error = eachMember(*layoutValue, [&] (const std::string& k, const V& v) {
                 return setLayoutProperty(*layer, k, v);
             });
+            if (error) {
+                return *error;
+            }
+        }
+
+        optional<Error> error = eachMember(value, [&] (const std::string& paintName, const V& paintValue) -> optional<Error> {
+            if (paintName.compare(0, 5, "paint") != 0) {
+                return {};
+            }
+
+            optional<std::string> klass;
+            if (paintName.compare(0, 6, "paint.") == 0) {
+                klass = paintName.substr(6);
+            }
+
+            return eachMember(paintValue, [&] (const std::string& k, const V& v) {
+                return setPaintProperty(*layer, k, v, klass);
+            });
+        });
+
+        if (error) {
+            return *error;
         }
 
         return std::move(layer);
