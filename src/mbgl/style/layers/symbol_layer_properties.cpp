@@ -5,43 +5,6 @@
 namespace mbgl {
 namespace style {
 
-void SymbolLayoutProperties::parse(const JSValue& value) {
-    symbolPlacement.parse("symbol-placement", value);
-    symbolSpacing.parse("symbol-spacing", value);
-    symbolAvoidEdges.parse("symbol-avoid-edges", value);
-    iconAllowOverlap.parse("icon-allow-overlap", value);
-    iconIgnorePlacement.parse("icon-ignore-placement", value);
-    iconOptional.parse("icon-optional", value);
-    iconRotationAlignment.parse("icon-rotation-alignment", value);
-    iconSize.parse("icon-size", value);
-    iconTextFit.parse("icon-text-fit", value);
-    iconTextFitPadding.parse("icon-text-fit-padding", value);
-    iconImage.parse("icon-image", value);
-    iconRotate.parse("icon-rotate", value);
-    iconPadding.parse("icon-padding", value);
-    iconKeepUpright.parse("icon-keep-upright", value);
-    iconOffset.parse("icon-offset", value);
-    textPitchAlignment.parse("text-pitch-alignment", value);
-    textRotationAlignment.parse("text-rotation-alignment", value);
-    textField.parse("text-field", value);
-    textFont.parse("text-font", value);
-    textSize.parse("text-size", value);
-    textMaxWidth.parse("text-max-width", value);
-    textLineHeight.parse("text-line-height", value);
-    textLetterSpacing.parse("text-letter-spacing", value);
-    textJustify.parse("text-justify", value);
-    textAnchor.parse("text-anchor", value);
-    textMaxAngle.parse("text-max-angle", value);
-    textRotate.parse("text-rotate", value);
-    textPadding.parse("text-padding", value);
-    textKeepUpright.parse("text-keep-upright", value);
-    textTransform.parse("text-transform", value);
-    textOffset.parse("text-offset", value);
-    textAllowOverlap.parse("text-allow-overlap", value);
-    textIgnorePlacement.parse("text-ignore-placement", value);
-    textOptional.parse("text-optional", value);
-}
-
 void SymbolLayoutProperties::recalculate(const CalculationParameters& parameters) {
     symbolPlacement.calculate(parameters);
     symbolSpacing.calculate(parameters);

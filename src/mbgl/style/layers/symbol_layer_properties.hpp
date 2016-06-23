@@ -15,7 +15,6 @@ class CalculationParameters;
 
 class SymbolLayoutProperties {
 public:
-    void parse(const JSValue&);
     void recalculate(const CalculationParameters&);
 
     LayoutProperty<SymbolPlacementType> symbolPlacement { SymbolPlacementType::Point };

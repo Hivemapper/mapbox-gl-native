@@ -5,13 +5,6 @@
 namespace mbgl {
 namespace style {
 
-void LineLayoutProperties::parse(const JSValue& value) {
-    lineCap.parse("line-cap", value);
-    lineJoin.parse("line-join", value);
-    lineMiterLimit.parse("line-miter-limit", value);
-    lineRoundLimit.parse("line-round-limit", value);
-}
-
 void LineLayoutProperties::recalculate(const CalculationParameters& parameters) {
     lineCap.calculate(parameters);
     lineJoin.calculate(parameters);

@@ -229,14 +229,7 @@ void Parser::parseLayer(const std::string& id, const JSValue& value, std::unique
         }
 
         layer = std::move(*converted);
-
-        Layer::Impl* impl = layer->baseImpl.get();
-
-        if (value.HasMember("layout")) {
-            impl->parseLayout(value["layout"]);
-        }
-
-        impl->parsePaints(value);
+        layer->baseImpl->parsePaints(value);
     }
 }
 

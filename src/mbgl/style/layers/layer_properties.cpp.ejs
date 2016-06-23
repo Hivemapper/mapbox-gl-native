@@ -11,12 +11,6 @@ namespace mbgl {
 namespace style {
 
 <% if (layoutProperties.length) { -%>
-void <%- camelize(type) %>LayoutProperties::parse(const JSValue& value) {
-<% for (const property of layoutProperties) { -%>
-    <%- camelizeWithLeadingLowercase(property.name) %>.parse(<%- JSON.stringify(property.name) %>, value);
-<% } -%>
-}
-
 void <%- camelize(type) %>LayoutProperties::recalculate(const CalculationParameters& parameters) {
 <% for (const property of layoutProperties) { -%>
     <%- camelizeWithLeadingLowercase(property.name) %>.calculate(parameters);

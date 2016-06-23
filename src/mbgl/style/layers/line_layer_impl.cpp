@@ -8,10 +8,6 @@
 namespace mbgl {
 namespace style {
 
-void LineLayer::Impl::parseLayout(const JSValue& value) {
-    layout.parse(value);
-}
-
 void LineLayer::Impl::parsePaints(const JSValue& layer) {
     paint.parse(layer);
 }

@@ -46,7 +46,6 @@ public:
     // Create an identical copy of this layer.
     virtual std::unique_ptr<Layer> clone() const = 0;
 
-    virtual void parseLayout(const JSValue& value) = 0;
     virtual void parsePaints(const JSValue& value) = 0;
 
     // If the layer has a ref, the ref. Otherwise, the id.

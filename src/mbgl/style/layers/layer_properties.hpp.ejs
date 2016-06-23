@@ -21,7 +21,6 @@ class CalculationParameters;
 <% if (layoutProperties.length) { -%>
 class <%- camelize(type) %>LayoutProperties {
 public:
-    void parse(const JSValue&);
     void recalculate(const CalculationParameters&);
 
 <% for (const property of layoutProperties) { -%>

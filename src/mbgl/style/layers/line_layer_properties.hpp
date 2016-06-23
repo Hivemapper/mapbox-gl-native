@@ -15,7 +15,6 @@ class CalculationParameters;
 
 class LineLayoutProperties {
 public:
-    void parse(const JSValue&);
     void recalculate(const CalculationParameters&);
 
     LayoutProperty<LineCapType> lineCap { LineCapType::Butt };
