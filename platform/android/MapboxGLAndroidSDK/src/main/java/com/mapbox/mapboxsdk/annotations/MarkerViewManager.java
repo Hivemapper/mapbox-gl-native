@@ -349,6 +349,9 @@ public class MarkerViewManager {
                         if (adaptedView != null) {
 
                             // tilt
+                            if (marker.isFlat() && marker.getTilt() == 0) {
+                                marker.setTilt((float) mapboxMap.getCameraPosition().tilt);
+                            }
                             adaptedView.setRotationX(marker.getTilt());
 
                             // rotation
